@@ -1,11 +1,14 @@
 package com.learn.cache.springbootredisexample.controller;
 
+import com.learn.cache.springbootredisexample.model.singleton.SingletonObject;
 import com.learn.cache.springbootredisexample.repository.UserRepositoryImpl;
 import com.learn.cache.springbootredisexample.model.User;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -15,9 +18,13 @@ public class UserController {
     @Autowired
     private UserRepositoryImpl userRepository;
 
+    @Autowired
+    private SingletonObject singletonObject;
+
+
     @PostMapping("/save")
     public User add(@RequestBody User user) {
-        return userRepository.save(user);
+        return userRepository.saveByHash(user);
     }
 //    @GetMapping("/add/{id}/{name}")
 //    public User add(@PathVariable("id") String id,
@@ -40,7 +47,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getById(@PathVariable int id) {
-        return userRepository.findById(id);
+        return userRepository.findUserByIdHash(id);
     }
 
     @DeleteMapping("/{id}")
