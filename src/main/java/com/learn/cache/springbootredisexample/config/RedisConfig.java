@@ -9,30 +9,36 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
-@EnableRedisRepositories
+
+/**
+ * 11/26
+ * use application.properties setting redis
+ */
+//@Configuration
+//@EnableRedisRepositories
 public class RedisConfig {
 
-    @Bean
-    public JedisConnectionFactory connectionFactory() {
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setHostName("localhost");
-        configuration.setPort(6379);
-        return new JedisConnectionFactory(configuration);
-    }
+//    @Bean
+//    public JedisConnectionFactory connectionFactory() {
+//        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+//        configuration.setHostName("localhost");
+//        configuration.setPort(6379);
+//        return new JedisConnectionFactory(configuration);
+//    }
 
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
-        redisTemplate.setConnectionFactory(connectionFactory());
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashKeySerializer(new JdkSerializationRedisSerializer());
-        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-        redisTemplate.setEnableTransactionSupport(true);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
+//    @Bean
+
+//    public RedisTemplate<String, Object> redisTemplate() {
+//        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+//        redisTemplate.setConnectionFactory(connectionFactory());
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashKeySerializer(new JdkSerializationRedisSerializer());
+//        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+//        redisTemplate.setEnableTransactionSupport(true);
+//        redisTemplate.afterPropertiesSet();
+//        return redisTemplate;
+//    }
 
 
 }
