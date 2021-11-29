@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,8 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class UserRepositoryImpl {
 
-
-    @Qualifier("redisTemplate")
+//    @Qualifier("redisTemplate")
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -52,13 +50,9 @@ public class UserRepositoryImpl {
         return "user id: " + id + " removed !!";
     }
 
-    /**
-     *
-     */
-    @Autowired
-    public void say() {
-        System.out.println("say Auto print");
-    }
+
+
+
 
 
 }
