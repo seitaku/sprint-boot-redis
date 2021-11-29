@@ -1,11 +1,12 @@
 package com.learn.cache.springbootredisexample.controller;
 
+import com.learn.cache.springbootredisexample.model.UUserEntity;
+import com.learn.cache.springbootredisexample.model.UserRedisEntity;
 import com.learn.cache.springbootredisexample.model.singleton.SingletonObject;
-import com.learn.cache.springbootredisexample.repository.UserRepositoryImpl;
-import com.learn.cache.springbootredisexample.model.User;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import com.learn.cache.springbootredisexample.repository.jpa.UUserRepository;
+import com.learn.cache.springbootredisexample.repository.redis.UserRedisRepositoryImpl;
+import com.learn.cache.springbootredisexample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -16,16 +17,22 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepositoryImpl userRepository;
+    private UserRedisRepositoryImpl userRedisRepository;
 
     @Autowired
-    private SingletonObject singletonObject;
-
+    private UserService userService;
 
     @PostMapping("/save")
-    public User add(@RequestBody User user) {
-        return userRepository.saveByHash(user);
+    public UserRedisEntity add(@RequestBody UserRedisEntity userRedisEntity) {
+        return userRedisRepository.saveByHash(userRedisEntity);
     }
+
+    @PostMapping("/save/noHash")
+    public UserRedisEntity addNoHash(@RequestBody UserRedisEntity userRedisEntity) {
+        return userRedisRepository.saveByNoHash(userRedisEntity);
+    }
+
+
 //    @GetMapping("/add/{id}/{name}")
 //    public User add(@PathVariable("id") String id,
 //                    @PathVariable("name") String name) {
@@ -41,40 +48,37 @@ public class UserController {
 //    }
 
     @GetMapping("/all")
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserRedisEntity> findAll() {
+        return userRedisRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable int id) {
-        return userRepository.findUserByIdHash(id);
+    public UserRedisEntity getRedisDataById(@PathVariable int id) {
+        return userRedisRepository.findUserByIdHash(id);
     }
 
     @DeleteMapping("/{id}")
     public String remove(@PathVariable int id) {
-        return userRepository.delete(id);
+        return userRedisRepository.delete(id);
     }
 
 
+    @GetMapping("/user/{id}")
+    public UUserEntity getById(@PathVariable int id) {
+        return userService.findUUserById(id);
+    }
 
 
+    public static void main(String[] args) {
+        int nums[] = {-1, 3, -10, -20};
 
+        Arrays.stream(nums).toArray();
+        long result = 0L;
+        for (int i = 0; i < nums.length - 2; i++) {
+            result = Math.max(result, nums[i] * nums[i + 1]);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println("End");
+    }
 
 }

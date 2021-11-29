@@ -7,14 +7,14 @@ import java.io.Serializable;
 
 
 @RedisHash("user")
-public class User implements Serializable {
+public class UserRedisEntity implements Serializable {
 
     @Id
     private int id;
     private String name;
     private Long salary;
 
-    public User(int id, String name, Long salary) {
+    public UserRedisEntity(int id, String name, Long salary) {
         this.id = id;
         this.name = name;
         this.salary = salary;
