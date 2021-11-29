@@ -17,53 +17,9 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRedisRepositoryImpl userRedisRepository;
-
-    @Autowired
     private UserService userService;
 
-    @PostMapping("/save")
-    public UserRedisEntity add(@RequestBody UserRedisEntity userRedisEntity) {
-        return userRedisRepository.saveByHash(userRedisEntity);
-    }
-
-    @PostMapping("/save/noHash")
-    public UserRedisEntity addNoHash(@RequestBody UserRedisEntity userRedisEntity) {
-        return userRedisRepository.saveByNoHash(userRedisEntity);
-    }
-
-
-//    @GetMapping("/add/{id}/{name}")
-//    public User add(@PathVariable("id") String id,
-//                    @PathVariable("name") String name) {
-//        userRepository.save(new User(id, name, 20000L));
-//        return userRepository.findById(id);
-//    }
-
-//    @PutMapping("/add/{id}/{name}")
-//    public User update(@PathVariable("id") String id,
-//                       @PathVariable("name") String name) {
-//        userRepository.update(new User(id, name, 10000L));
-//        return userRepository.findById(id);
-//    }
-
-    @GetMapping("/all")
-    public List<UserRedisEntity> findAll() {
-        return userRedisRepository.findAll();
-    }
-
     @GetMapping("/{id}")
-    public UserRedisEntity getRedisDataById(@PathVariable int id) {
-        return userRedisRepository.findUserByIdHash(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public String remove(@PathVariable int id) {
-        return userRedisRepository.delete(id);
-    }
-
-
-    @GetMapping("/user/{id}")
     public UUserEntity getById(@PathVariable int id) {
         return userService.findUUserById(id);
     }
